@@ -1,4 +1,50 @@
 export const workflowRegistry = {
+  'openclaw.release.tweet': {
+    name: 'openclaw.release.tweet',
+    description:
+      'Generate an OpenClaw release tweet (sassy/professional/drybread) from commits + changelog, with approval.',
+    argsSchema: {
+      type: 'object',
+      properties: {
+        repo_dir: { type: 'string', description: 'Path to OpenClaw repo (default: ../openclaw)' },
+        since_ref: { type: 'string', description: 'Start ref (tag/sha). Default: HEAD~max_commits' },
+        max_commits: { type: 'number', description: 'Commit window when since_ref is empty (default: 30)' },
+        link: { type: 'string', description: 'Release notes link to include (default: https://openclaw.dev)' },
+        style: { type: 'string', description: 'sassy|professional|drybread (default: professional)' },
+      },
+      required: [],
+    },
+    examples: [
+      {
+        args: { style: 'sassy', since_ref: 'HEAD~30', link: 'https://openclaw.dev' },
+        description: 'Generate a sassy tweet from last 30 commits.',
+      },
+    ],
+    sideEffects: [],
+  },
+  'openclaw.release.post': {
+    name: 'openclaw.release.post',
+    description:
+      'Generate an OpenClaw release tweet and (after approval) post to X via bird CLI.',
+    argsSchema: {
+      type: 'object',
+      properties: {
+        repo_dir: { type: 'string', description: 'Path to OpenClaw repo (default: ../openclaw)' },
+        since_ref: { type: 'string', description: 'Start ref (tag/sha). Default: HEAD~max_commits' },
+        max_commits: { type: 'number', description: 'Commit window when since_ref is empty (default: 30)' },
+        link: { type: 'string', description: 'Release notes link to include (default: https://openclaw.dev)' },
+        style: { type: 'string', description: 'sassy|professional|drybread (default: professional)' },
+      },
+      required: [],
+    },
+    examples: [
+      {
+        args: { style: 'professional', since_ref: 'HEAD~30', link: 'https://openclaw.dev' },
+        description: 'Approve and post a professional tweet.',
+      },
+    ],
+    sideEffects: ['local_exec'],
+  },
   'github.pr.monitor': {
     name: 'github.pr.monitor',
     description: 'Fetch PR state via gh, diff against last run, emit only on change.',

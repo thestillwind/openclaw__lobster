@@ -1,7 +1,10 @@
 import { workflowRegistry } from '../../workflows/registry.js';
 import { runGithubPrMonitorWorkflow, runGithubPrMonitorNotifyWorkflow } from '../../workflows/github_pr_monitor.js';
+import { runOpenclawReleasePostWorkflow, runOpenclawReleaseTweetWorkflow } from '../../workflows/openclaw_release.js';
 
 const runners = {
+  'openclaw.release.tweet': runOpenclawReleaseTweetWorkflow,
+  'openclaw.release.post': runOpenclawReleasePostWorkflow,
   'github.pr.monitor': runGithubPrMonitorWorkflow,
   'github.pr.monitor.notify': runGithubPrMonitorNotifyWorkflow,
 };
